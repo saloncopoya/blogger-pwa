@@ -33,30 +33,30 @@
       "name": "Ver En Vivo",
       "short_name": "Live",
       "url": "https://www.facebook.com/gaming/61559625321968",
-      "icons": [{ "src": "https://img.icons8.com/color/1200/youtube-live.jpg", "sizes": "192x192" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/youtube-live.png", "sizes": "48x48" }]
     },
     {
-      "name": "Resultados de Hoy",
+      "name": "Resultados Hoy",
       "short_name": "Resultados",
       "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Resultados",
-      "icons": [{ "src": "https://img.icons8.com/color/1200/youtube-live.jpg", "sizes": "192x192" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "48x48" }]
     },
     {
       "name": "📍 Ubicación",
       "short_name": "Ubicación",
       "url": "https://www.google.com/maps",
-      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/854/854878.png", "sizes": "192x192" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/marker.png", "sizes": "48x48" }]
     },
     {
-      "name": "📱 WhatsApp Soporte",
+      "name": "📱 WhatsApp",
       "short_name": "Soporte",
       "url": "https://wa.me/529611150394",
-      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/733/733585.png", "sizes": "192x192" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/whatsapp.png", "sizes": "48x48" }]
     }
   ],
   "protocol_handlers": [
     {
-      "protocol": "galloslive",
+      "protocol": "web+gallos",
       "url": "/search?q=%s"
     }
   ]
