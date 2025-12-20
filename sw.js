@@ -32,12 +32,10 @@ self.addEventListener('activate', event => {
 
 // 3. Estrategia OFFLINE REAL: Cache First + Dynamic Caching
 self.addEventListener('fetch', event => {
-  // Solo procesamos peticiones de navegación o de imágenes/estilos
   if (event.request.mode === 'navigate' || event.request.destination === 'image') {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          // Si la red funciona, clonamos la respuesta y la guardamos en el caché
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, copy);
@@ -45,14 +43,14 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(() => {
-          // Si NO hay red, buscamos en el caché lo que sea que el usuario haya visto antes
           return caches.match(event.request).then(cachedResponse => {
-            return cachedResponse || caches.match('/'); // Si no hay nada, al menos mostramos el inicio
+            // AQUÍ: Si no hay red y no está en caché, devuelve '/' (el inicio) 
+            // para evitar que el navegador diga "No tienes conexión"
+            return cachedResponse || caches.match('/'); 
           });
         })
     );
   } else {
-    // Para el resto (scripts externos, anuncios), intentamos red primero
     event.respondWith(
       caches.match(event.request).then(response => {
         return response || fetch(event.request);
