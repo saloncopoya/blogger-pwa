@@ -1,5 +1,31 @@
-const CACHE_NAME = 'gallosv2'; // Nombre nuevo para limpiar caché viejo
+// --- CONFIGURACIÓN DE FIREBASE (PON ESTO ARRIBA DE TODO) ---
+importScripts('https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging-compat.js');
 
+firebase.initializeApp({
+  apiKey: "AIzaSyASox7mRak5V0py29htEVWCVeipGpA0yfs",
+  projectId: "galloslivebadge",
+  messagingSenderId: "979482928760", // AQUÍ VA EL ID SENDER
+  appId: "1:979482928760:web:3ea879dc4ee1e020df6f8d"
+});
+
+const messaging = firebase.messaging();
+
+// Escuchar notificaciones en segundo plano
+messaging.onBackgroundMessage((payload) => {
+  console.log('Notificación recibida en segundo plano:', payload);
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg'
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+// --- EL RESTO DE TU CÓDIGO (CACHE, FETCH, ETC.) EMPIEZA AQUÍ ---
+const CACHE_NAME = 'gallos3';
+// ... (todo lo demás que ya tienes)
 const urlsToCache = [
   '/',
   '/favicon.ico',
