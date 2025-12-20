@@ -1,22 +1,39 @@
 {
   "name": "Premium Cotejos Gallisticos",
   "short_name": "Gallos Live",
+  "description": "Transmisiones en vivo y resultados gallísticos.",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
-"display": "fullscreen", 
+  "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#FE2C55",
+  "categories": ["sports", "entertainment"],
   "icons": [
     {
       "src": "https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver En Vivo",
+      "short_name": "Live",
+      "url": "/search/label/Live",
+      "icons": [{ "src": "https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png", "sizes": "192x192" }]
     }
   ]
 }
