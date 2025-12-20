@@ -12,19 +12,19 @@
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any"
     },
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any"
     },
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "maskable"
     }
   ],
@@ -32,8 +32,32 @@
     {
       "name": "Ver En Vivo",
       "short_name": "Live",
-      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Live",
-      "icons": [{ "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg", "sizes": "192x192" }]
+      "url": "https://www.facebook.com/gaming/61559625321968",
+      "icons": [{ "src": "https://img.icons8.com/color/1200/youtube-live.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Resultados de Hoy",
+      "short_name": "Resultados",
+      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Resultados",
+      "icons": [{ "src": "https://img.icons8.com/color/1200/youtube-live.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "📍 Ubicación",
+      "short_name": "Ubicación",
+      "url": "https://www.google.com/maps",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/854/854878.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "📱 WhatsApp Soporte",
+      "short_name": "Soporte",
+      "url": "https://wa.me/529611150394",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/733/733585.png", "sizes": "192x192" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+gallos",
+      "url": "/search?q=%s"
     }
   ]
 }
