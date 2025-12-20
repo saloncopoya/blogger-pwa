@@ -1,0 +1,58 @@
+{
+  "name": "Premium Cotejos Gallisticos",
+  "short_name": "Gallos Live",
+  "description": "Transmisiones en vivo y resultados gallísticos.",
+  "start_url": "https://galloslive.blogspot.com/",
+  "scope": "https://galloslive.blogspot.com/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#FE2C55",
+  "categories": ["sports", "entertainment"],
+  "capture_links": "existing-client-navigate",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://galloslive.blogspot.com/manifest.json"
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "🔴 En Vivo",
+      "url": "https://galloslive.blogspot.com/search/label/Live",
+      "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "💬 Soporte WhatsApp",
+      "short_name": "Chat",
+      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "icons": [{ "src": "https://img.icons8.com/color/96/whatsapp.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "🏆 Resultados",
+      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+gallos",
+      "url": "/search?q=%s"
+    }
+  ]
+}
