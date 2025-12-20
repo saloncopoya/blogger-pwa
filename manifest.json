@@ -1,6 +1,6 @@
 {
-  "name": "Gallos PRO Elite V3",
-  "short_name": "GallosElite",
+  "name": "Premium Cotejos Gallisticos",
+  "short_name": "Gallos Live",
   "description": "Transmisiones en vivo y resultados gallísticos.",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
   "scope": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
@@ -10,6 +10,13 @@
   "theme_color": "#FE2C55",
   "categories": ["sports", "entertainment"],
   "capture_links": "existing-client-navigate",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/manifest.json"
+    }
+  ],
   "icons": [
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
