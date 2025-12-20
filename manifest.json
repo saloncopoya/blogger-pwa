@@ -32,28 +32,9 @@
     {
       "name": "Ver En Vivo",
       "short_name": "Live",
-      "url": "https://www.facebook.com/gaming/61559625321968",
-      "icons": [{ "src": "https://img.icons8.com/color/48/youtube-live.png", "sizes": "48x48" }]
+      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Live",
+      "icons": [{ "src": "https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png", "sizes": "192x192" }]
     },
-    {
-      "name": "Resultados",
-      "short_name": "Resultados",
-      "url": "https://www.facebook.com/premiumcotejosgallisticos",
-      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "48x48" }]
-    },
-    {
-      "name": "Ubicación",
-      "short_name": "Mapa",
-      "url": "https://www.google.com/maps",
-      "icons": [{ "src": "https://img.icons8.com/color/48/marker.png", "sizes": "48x48" }]
-    },
-    {
-      "name": "WhatsApp",
-      "short_name": "Soporte",
-      "url": "https://wa.me/529611150394",
-      "icons": [{ "src": "https://img.icons8.com/color/48/whatsapp.png", "sizes": "48x48" }]
-    }
-  ],
   "protocol_handlers": [
     {
       "protocol": "web+gallos",
