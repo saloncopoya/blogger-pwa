@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gallos-live-v5-offline'; // Nombre nuevo para limpiar caché viejo
+const CACHE_NAME = 'gallosv1'; // Nombre nuevo para limpiar caché viejo
 
 const urlsToCache = [
   '/',
@@ -58,5 +58,14 @@ self.addEventListener('fetch', event => {
         return response || fetch(event.request);
       })
     );
+  }
+});
+
+// Escuchar mensajes para actualizar el Badge
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SET_BADGE') {
+    if ('setAppBadge' in self.navigator) {
+      self.navigator.setAppBadge(event.data.number);
+    }
   }
 });
