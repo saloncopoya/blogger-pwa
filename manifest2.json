@@ -49,9 +49,7 @@
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
   ],
-  "protocol_handlers": [
-    {
-      "protocol_handlers": [
+       "protocol_handlers": [
     {
       "protocol": "web+gallos",
       "url": "/search?q=%s"
