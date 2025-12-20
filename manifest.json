@@ -1,19 +1,19 @@
 {
-  "name": "Tu Nombre de App",
-  "short_name": "App",
-  "start_url": "https://tu-blog.blogspot.com/",
+  "name": "App Salon Copoya",
+  "short_name": "CopoyaApp",
+  "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#FE2C55",
   "icons": [
     {
-      "src": "https://tu-enlace.com/logo192.png",
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgf_uF7vI4mK7-M_B_xN/s192/icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://tu-enlace.com/logo512.png",
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgf_uF7vI4mK7-M_B_xN/s512/icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
