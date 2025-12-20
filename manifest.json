@@ -31,8 +31,14 @@
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
+      "name": "💬 Soporte WhatsApp",
+      "short_name": "Chat",
+      "url": "https://wa.me/529611150394",
+      "icons": [{ "src": "https://img.icons8.com/color/96/whatsapp.png", "sizes": "96x96" }]
+    },
+    {
       "name": "🏆 Resultados",
-      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Resultados",
+      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/2025/12/resultados.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
   ],
