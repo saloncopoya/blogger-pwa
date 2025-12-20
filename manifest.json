@@ -1,14 +1,15 @@
 {
-  "name": "Gallos Live Premium 2025",
-  "short_name": "GallosPRO",
+  "name": "Gallos PRO Elite V3",
+  "short_name": "GallosElite",
   "description": "Transmisiones en vivo y resultados gallísticos.",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
+  "scope": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#FE2C55",
-  "scope": "/",
-  "handle_links": "preferred",
+  "categories": ["sports", "entertainment"],
+  "capture_links": "existing-client-navigate",
   "icons": [
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
@@ -25,12 +26,12 @@
   ],
   "shortcuts": [
     {
-      "name": "En Vivo",
+      "name": "🔴 En Vivo",
       "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Live",
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
-      "name": "Resultados",
+      "name": "🏆 Resultados",
       "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Resultados",
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
@@ -38,7 +39,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+gallos",
-      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search?q=%s"
+      "url": "/search?q=%s"
     }
   ]
 }
