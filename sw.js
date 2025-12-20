@@ -1,31 +1,44 @@
-const CACHE_NAME = 'blog-v1';
-// Agrega aquí las URLs que quieres que funcionen offline (como tu página de inicio)
+const CACHE_NAME = 'gallos-live-v2'; // Cambié el nombre para forzar actualización
+
 const urlsToCache = [
   '/',
-  'https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/'
+  'https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/',
+  'https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png'
 ];
 
-// Instalación: Guarda los archivos en el teléfono
+// Instalación: Guarda los archivos críticos
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
+  );
+  self.skipWaiting(); // Obliga al nuevo SW a tomar el control de inmediato
+});
+
+// Limpieza: Borra el caché viejo (blog-v1) para que se vean tus cambios nuevos
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
   );
 });
 
-// Interceptor: Si no hay internet, busca en la caché
+// Estrategia: "Network First" (Intenta internet, si falla usa caché)
+// Es mejor para blogs porque el contenido cambia seguido
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Si está en caché, lo devuelve. Si no, intenta ir a internet.
-        return response || fetch(event.request).catch(() => {
-          // AQUÍ puedes decidir qué mostrar si no hay internet ni caché
-          // Podrías devolver una página personalizada de "Offline"
-          return caches.match('/');
-        });
-      })
+    fetch(event.request).catch(() => {
+      return caches.match(event.request).then(response => {
+        return response || caches.match('/');
+      });
+    })
   );
 });
