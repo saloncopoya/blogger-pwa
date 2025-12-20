@@ -56,7 +56,7 @@
   ],
   "protocol_handlers": [
     {
-      "protocol": "web+gallos",
+      "protocol": "galloslive",
       "url": "/search?q=%s"
     }
   ]
