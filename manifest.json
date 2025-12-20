@@ -1,6 +1,6 @@
 {
-  "name": "Premium Cotejos Gallisticos.",
-  "short_name": "Cotejos Gallisticos.",
+  "name": "Premium Cotejos Gallisticos PRO",
+  "short_name": "Gallos PRO",
   "description": "Transmisiones en vivo y resultados gallísticos.",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
   "display": "standalone",
@@ -39,16 +39,16 @@
       "name": "Resultados",
       "short_name": "Resultados",
       "url": "https://www.facebook.com/premiumcotejosgallisticos",
-      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "512x512" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "48x48" }]
     },
     {
-      "name": "📍 Ubicación",
-      "short_name": "Ubicación",
+      "name": "Ubicación",
+      "short_name": "Mapa",
       "url": "https://www.google.com/maps",
       "icons": [{ "src": "https://img.icons8.com/color/48/marker.png", "sizes": "48x48" }]
     },
     {
-      "name": "📱 WhatsApp",
+      "name": "WhatsApp",
       "short_name": "Soporte",
       "url": "https://wa.me/529611150394",
       "icons": [{ "src": "https://img.icons8.com/color/48/whatsapp.png", "sizes": "48x48" }]
