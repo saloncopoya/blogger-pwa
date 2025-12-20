@@ -39,7 +39,7 @@
       "name": "Resultados",
       "short_name": "Resultados",
       "url": "https://www.facebook.com/premiumcotejosgallisticos",
-      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "48x48" }]
+      "icons": [{ "src": "https://img.icons8.com/color/48/prize.png", "sizes": "512x512" }]
     },
     {
       "name": "📍 Ubicación",
