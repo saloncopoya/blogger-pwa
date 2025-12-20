@@ -1,13 +1,14 @@
 {
-  "name": "Premium Cotejos Gallisticos",
-  "short_name": "Gallos Live",
+  "name": "Gallos Live Premium 2025",
+  "short_name": "GallosPRO",
   "description": "Transmisiones en vivo y resultados gallísticos.",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#FE2C55",
-  "categories": ["sports", "entertainment"],
+  "scope": "/",
+  "handle_links": "preferred",
   "icons": [
     {
       "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
@@ -20,24 +21,16 @@
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
-    },
-    {
-      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "Ver En Vivo",
-      "short_name": "Live",
+      "name": "En Vivo",
       "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Live",
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
-      "name": "Resultados de Hoy",
-      "short_name": "Resultados",
+      "name": "Resultados",
       "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search/label/Resultados",
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
@@ -45,7 +38,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+gallos",
-      "url": "/search?q=%s"
+      "url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/search?q=%s"
     }
   ]
 }
