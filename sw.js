@@ -1,8 +1,9 @@
-self.addEventListener('install', (e) => {
-  console.log('PWA Service Worker instalado');
+// Archivo sw.js en GitHub
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', (e) => {
-  // Esto permite que la app funcione incluso con internet lento
-  e.respondWith(fetch(e.request));
+self.addEventListener('fetch', (event) => {
+  // Esto es lo que activa el botón de "Instalar"
+  event.respondWith(fetch(event.request));
 });
