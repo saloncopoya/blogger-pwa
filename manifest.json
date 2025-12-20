@@ -2,7 +2,8 @@
   "name": "App Salon Copoya",
   "short_name": "CopoyaApp",
   "start_url": "https://werwfw45234wef3243e23fwedfrtert343455.blogspot.com/",
-  "display": "standalone",
+"display": "fullscreen", 
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#FE2C55",
   "icons": [
