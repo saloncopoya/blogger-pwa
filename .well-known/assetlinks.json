@@ -1,8 +1,15 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.android.chrome",
-    "sha256_cert_fingerprints": ["32:70:E8:32:45:AF:1A:5F:1A:12:35:E4:73:96:25:39:6F:E1:97:F2:F0:8B:F2:47:65:E1:92:07:9F:8E:FB:17"]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.android.chrome",
+      "sha256_cert_fingerprints": [
+        "32:70:E8:32:45:AF:1A:5F:1A:12:35:E4:73:96:25:39:6F:E1:97:F2:F0:8B:F2:47:65:E1:92:07:9F:8E:FB:17"
+      ]
+    }
   }
-}]
+]
