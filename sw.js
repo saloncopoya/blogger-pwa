@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gallos-live-v3'; // Cambié el nombre para forzar actualización
+const CACHE_NAME = 'gallos-live-v4'; // Cambié el nombre para forzar actualización
 
 const urlsToCache = [
   '/',
