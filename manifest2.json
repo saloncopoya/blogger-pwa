@@ -51,8 +51,11 @@
   ],
   "protocol_handlers": [
     {
+      "protocol_handlers": [
+    {
       "protocol": "web+gallos",
       "url": "/search?q=%s"
     }
-  ]
+  ],
+  "gcm_sender_id": "979482928760"
 }
