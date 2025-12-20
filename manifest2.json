@@ -34,18 +34,18 @@
   "shortcuts": [
     {
       "name": "🔴 En Vivo",
-      "url": "https://galloslive.blogspot.com/search/label/Live",
+      "url": "https://galloslive.blogspot.com/p/live.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
       "name": "💬 Soporte WhatsApp",
       "short_name": "Chat",
-      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "url": "https://galloslive.blogspot.com/p/whatsapp.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/whatsapp.png", "sizes": "96x96" }]
     },
     {
       "name": "🏆 Resultados",
-      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "url": "https://galloslive.blogspot.com/",
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
   ],
