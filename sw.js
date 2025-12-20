@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gallosv1'; // Nombre nuevo para limpiar caché viejo
+const CACHE_NAME = 'gallosv2'; // Nombre nuevo para limpiar caché viejo
 
 const urlsToCache = [
   '/',
@@ -44,8 +44,8 @@ self.addEventListener('fetch', event => {
         })
         .catch(() => {
           return caches.match(event.request).then(cachedResponse => {
-            // AQUÍ: Si no hay red y no está en caché, devuelve '/' (el inicio) 
-            // para evitar que el navegador diga "No tienes conexión"
+            // Si no hay red y no está en caché, devuelve '/' (el inicio) 
+            // Esto evita el aviso de "No tienes conexión" del navegador
             return cachedResponse || caches.match('/'); 
           });
         })
