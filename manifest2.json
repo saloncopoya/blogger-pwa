@@ -1,9 +1,9 @@
 {
   "name": "Premium Cotejos Gallisticos. ",
-  "short_name": "Gallos Live",
+  "short_name": "Gallos Live.",
   "description": "Transmisiones en vivo y resultados gallísticos.",
-  "start_url": "https://galloslive.blogspot.com/?m=1",
-  "scope": "https://galloslive.blogspot.com/?m=1",
+  "start_url": "galloslive.blogspot.com/?m=1",
+  "scope": "galloslive.blogspot.com/?m=1",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#000000",
