@@ -2,8 +2,8 @@
   "name": "Premium Cotejos Gallisticos. ",
   "short_name": "Gallos Live.",
   "description": "Transmisiones en vivo y resultados gallísticos.",
-  "start_url": "galloslive.blogspot.com/?m=1",
-  "scope": "galloslive.blogspot.com/?m=1",
+  "start_url": "/?m=1",
+  "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#000000",
@@ -14,7 +14,7 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://galloslive.blogspot.com/manifest.json"
+      "url": "https://galloslive.blogspot.com/manifest2.json"
     }
   ],
   "icons": [
@@ -34,18 +34,18 @@
   "shortcuts": [
     {
       "name": "🔴 En Vivo",
-      "url": "https://galloslive.blogspot.com/p/live.html",
+      "url": "/p/live.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
       "name": "💬 Soporte WhatsApp",
       "short_name": "Chat",
-      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "url": "/2025/12/resultados.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/whatsapp.png", "sizes": "96x96" }]
     },
     {
       "name": "Comunidad Gallera",
-      "url": "https://galloslive.blogspot.com/p/feed.html",
+      "url": "/p/feed.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/prize.png", "sizes": "96x96" }]
     }
   ],
