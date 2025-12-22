@@ -1,4 +1,4 @@
-CACHE_NAME = 'gallosv2'; // Nombre nuevo para limpiar caché viejo
+CACHE_NAME = 'gallos'; // Nombre nuevo para limpiar caché viejo
 
 
 
