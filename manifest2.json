@@ -33,14 +33,14 @@
   ],
   "shortcuts": [
     {
-      "name": "🔴 En Vivo",
-      "url": "https://galloslive.blogspot.com/p/live.html",
+      "name": "Tabla de Posicion",
+      "url": "https://galloslive.blogspot.com/p/tabla.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/youtube-live.png", "sizes": "96x96" }]
     },
     {
-      "name": "💬 Soporte WhatsApp",
+      "name": "💬 Cotejo",
       "short_name": "Chat",
-      "url": "https://galloslive.blogspot.com/2025/12/resultados.html",
+      "url": "https://galloslive.blogspot.com/p/cotejo.html",
       "icons": [{ "src": "https://img.icons8.com/color/96/whatsapp.png", "sizes": "96x96" }]
     },
     {
