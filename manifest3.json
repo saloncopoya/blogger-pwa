@@ -10,7 +10,7 @@
   "theme_color": "#FE2C55",
   "categories": ["sports", "entertainment"],
   "capture_links": "existing-client-navigate",
-  "prefer_related_applications": "true",
+  "prefer_related_applications": true,
   "related_applications": [
     {
       "platform": "webapp",
