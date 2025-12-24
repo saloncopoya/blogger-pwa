@@ -2,23 +2,34 @@ const CACHE_NAME = 'gallos-v2'; // Cambia el nombre cada vez que subas cambios
 
 const urlsToCache = [
   '/',
-  '/favicon.ico',
   'https://aplicaciongalloslive.blogspot.com/?m=1', // Corregida la doble barra
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg'
 ];
 
-// 1. Instalación
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('Caché instalado');
-      // Usamos return para asegurar que se guarden antes de terminar
-      return cache.addAll(urlsToCache);
-    }).catch(err => console.log('Error en addAll', err))
-  );
-  self.skipWaiting();
-});
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      // Si está en caché, lo devuelve de inmediato (RÁPIDO)
+      if (cachedResponse) return cachedResponse;
 
+      // Si no está, lo busca en internet
+      return fetch(event.request).then(response => {
+        // Si la respuesta es buena, la guarda para la próxima vez
+        if (response && response.status === 200) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        }
+        return response;
+      }).catch(() => {
+        // SI NO HAY INTERNET Y NO ESTÁ EN CACHÉ:
+        // Si el usuario está navegando a la página principal, fuérzalo a ver el inicio
+        if (event.request.mode === 'navigate') {
+          return caches.match('https://aplicaciongalloslive.blogspot.com/?m=1');
+        }
+      });
+    })
+  );
+});
 // 2. Activación (Limpieza de cachés viejos)
 self.addEventListener('activate', event => {
   event.waitUntil(
