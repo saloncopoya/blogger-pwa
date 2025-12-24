@@ -1,137 +1,60 @@
-CACHE_NAME = 'gallos'; // Nombre nuevo para limpiar caché viejo
-
-
+const CACHE_NAME = 'gallos-v2'; // Cambia el nombre cada vez que subas cambios
 
 const urlsToCache = [
-
   '/',
-
   '/favicon.ico',
-
-  'https://aplicaciongalloslive.blogspot.com//?m=1',
-
+  'https://aplicaciongalloslive.blogspot.com/?m=1', // Corregida la doble barra
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg'
-
 ];
 
-
-
-// 1. Instalación: Guardar archivos críticos
-
+// 1. Instalación
 self.addEventListener('install', event => {
-
   event.waitUntil(
-
     caches.open(CACHE_NAME).then(cache => {
-
-      console.log('Caché instalado correctamente');
-
+      console.log('Caché instalado');
+      // Usamos return para asegurar que se guarden antes de terminar
       return cache.addAll(urlsToCache);
-
-    })
-
+    }).catch(err => console.log('Error en addAll', err))
   );
-
   self.skipWaiting();
-
 });
 
-
-
-// 2. Activación: Limpieza total de versiones viejas
-
+// 2. Activación (Limpieza de cachés viejos)
 self.addEventListener('activate', event => {
-
   event.waitUntil(
-
     caches.keys().then(keys => {
-
-      return Promise.all(keys.map(key => {
-
-        if (key !== CACHE_NAME) return caches.delete(key);
-
-      }));
-
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      );
     })
-
   );
-
   self.clients.claim();
-
 });
 
-
-
-// 3. Estrategia OFFLINE REAL: Cache First + Dynamic Caching
-
+// 3. Manejo de peticiones (Offline Real)
 self.addEventListener('fetch', event => {
+  // Solo manejamos peticiones GET (Firebase usa otras que no se cachean así)
+  if (event.request.method !== 'GET') return;
 
-  if (event.request.mode === 'navigate' || event.request.destination === 'image') {
-
-    event.respondWith(
-
-      fetch(event.request)
-
-        .then(response => {
-
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        // Si la respuesta es válida, guardamos una copia en caché
+        if (response && response.status === 200) {
           const copy = response.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-
-            cache.put(event.request, copy);
-
-          });
-
-          return response;
-
-        })
-
-        .catch(() => {
-
-          return caches.match(event.request).then(cachedResponse => {
-
-            // Si no hay red y no está en caché, devuelve '/' (el inicio) 
-
-            // Esto evita el aviso de "No tienes conexión" del navegador
-
-            return cachedResponse || caches.match('/'); 
-
-          });
-
-        })
-
-    );
-
-  } else {
-
-    event.respondWith(
-
-      caches.match(event.request).then(response => {
-
-        return response || fetch(event.request);
-
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        }
+        return response;
       })
-
-    );
-
-  }
-
-});
-
-
-
-// Escuchar mensajes para actualizar el Badge
-
-self.addEventListener('message', event => {
-
-  if (event.data && event.data.type === 'SET_BADGE') {
-
-    if ('setAppBadge' in self.navigator) {
-
-      self.navigator.setAppBadge(event.data.number);
-
-    }
-
-  }
-
+      .catch(() => {
+        // Si falla la red, buscamos en el caché
+        return caches.match(event.request).then(cachedResponse => {
+          // Si es una navegación (página principal), devolvemos el inicio guardado
+          if (event.request.mode === 'navigate') {
+            return caches.match('https://aplicaciongalloslive.blogspot.com/?m=1');
+          }
+          return cachedResponse;
+        });
+      })
+  );
 });
