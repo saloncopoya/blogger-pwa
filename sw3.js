@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gallos-v2'; // Cambia el nombre cada vez que subas cambios
+const CACHE_NAME = 'gallos-v3'; // Cambia el nombre cada vez que subas cambios
 
 const urlsToCache = [
   '/',
