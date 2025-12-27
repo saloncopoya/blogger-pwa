@@ -1,0 +1,73 @@
+{
+  "name": "SocialApp - Tu Red Social",
+  "short_name": "SocialApp",
+  "description": "Conéctate con amigos y el mundo en esta red social",
+  "start_url": "https://postinv2s.blogspot.com/?source=pwa",
+  "scope": "https://postinv2s.blogspot.com/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "categories": ["social", "entertainment"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva Publicación",
+      "short_name": "Publicar",
+      "description": "Crear nueva publicación",
+      "url": "https://postinv2s.blogspot.com/?publish=true",
+      "icons": [
+        {
+          "src": "https://img.icons8.com/color/96/add.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mi Perfil",
+      "short_name": "Perfil",
+      "description": "Ver mi perfil",
+      "url": "https://postinv2s.blogspot.com/?view=profile",
+      "icons": [
+        {
+          "src": "https://img.icons8.com/color/96/user.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Amigos",
+      "short_name": "Amigos",
+      "description": "Ver lista de amigos",
+      "url": "https://postinv2s.blogspot.com/?view=friends",
+      "icons": [
+        {
+          "src": "https://img.icons8.com/color/96/friends.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfNk28jLkog7p3YJv2vrK0rFEehU18BtZxPobHh6zMTO3e80-e_j5xbkU8IinudcuhRjvxp9aGjNTEDA-oFIRk_4s3ogo3-xQqgm_7Ej1E0FOoLR0Z1YDmx4wrobs8nheRahQKrjgHchZg9X-kZNqaDyctv2LeYFc5kGifjnOWx_sx2_MUCc0vqdYWzQqh/s512/pcg.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ]
+}
