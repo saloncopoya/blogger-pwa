@@ -95,24 +95,25 @@ class TelegramUploader:
 
     async def connect(self):
         try:
-            api_id = int(self.bot_token.split(':')[0]) if ':' in self.bot_token else Config.API_ID
-            # Usamos :memory: para que no intente crear archivos en Render que causan error 500
-            self.client = TelegramClient(None, api_id, Config.API_HASH)
+            # USAR EL API_ID REAL DE CONFIG, NO EL DEL TOKEN
+            self.client = TelegramClient(None, Config.API_ID, Config.API_HASH)
+            
             await self.client.start(bot_token=self.bot_token)
             self.is_connected = True
             
-            # Intentamos obtener el canal para validar que existe
+            # Validar el canal
             try:
                 self.channel = await self.client.get_entity(Config.CHANNEL_USERNAME)
                 logger.info(f"✅ Canal verificado: {Config.CHANNEL_USERNAME}")
             except Exception as ce:
-                logger.error(f"⚠️ No se pudo encontrar el canal {Config.CHANNEL_USERNAME}: {ce}")
-                self.channel = Config.CHANNEL_USERNAME # Reintento directo
+                logger.error(f"⚠️ Error verificando canal: {ce}")
+                self.channel = Config.CHANNEL_USERNAME
                 
             return True
         except Exception as e:
             logger.error(f"❌ Error en conexión de bot: {e}")
             return False
+            
 
     async def upload_file(self, file_path: Path, caption: str = "") -> Dict:
         if not self.is_connected: 
