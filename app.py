@@ -303,38 +303,14 @@ class TelegramUploader:
 # ==============================================
 # SERVIDOR WEB AIOHTTP
 # ==============================================
-# ==============================================
-# CORS MIDDLEWARE PARA RENDER
-# ==============================================
-@web.middleware
-async def cors_middleware(self, request, handler):
-    """Middleware para habilitar CORS en Render"""
-    # Solo para peticiones OPTIONS (preflight)
-    if request.method == "OPTIONS":
-        response = web.Response()
-    else:
-        response = await handler(request)
-    
-    # Headers CORS para permitir Blogger
-    response.headers.update({
-        "Access-Control-Allow-Origin": "*",  # Permite todos los orígenes
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": 
-            "Content-Type, Authorization, X-Bot-Token, X-Requested-With",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Max-Age": "86400",  # 24 horas cache
-    })
-    
-    return response
-
 class TelegramBridgeServer:
     def __init__(self):
         self.app = web.Application(
             client_max_size=RENDER['max_file_size'],
             middlewares=[
-                self.cors_middleware,      # ✅ NUEVO: CORS primero
                 self.error_middleware,
-                self.auth_middleware
+                self.auth_middleware,
+                self.cors_middleware  # <--- Añade esto
             ]
         )
         
