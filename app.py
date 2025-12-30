@@ -163,10 +163,22 @@ class TelegramBridgeServer:
 
     @web.middleware
     async def auth_middleware(self, request, handler):
-        if request.path in ['/health', '/']: return await handler(request)
+        """Middleware de autenticación simplificado"""
+        # Si es salud o raíz, dejar pasar
+        if request.path in ['/health', '/']: 
+            return await handler(request)
+            
+        # Intentar obtener el token de varias formas
         token = request.headers.get('X-Bot-Token') or request.headers.get('Authorization')
-        if not token or token not in [Config.BOT_TOKEN_A, Config.BOT_TOKEN_B, Config.BOT_TOKEN_C]:
-            return web.json_response({'error': 'No autorizado'}, status=401)
+        
+        # LISTA DE TOKENS VÁLIDOS (Asegúrate que coincidan con tus variables)
+        valid_tokens = [Config.BOT_TOKEN_A, Config.BOT_TOKEN_B, Config.BOT_TOKEN_C]
+        
+        # DEBUG: Si quieres que funcione SI O SI mientras pruebas, 
+        # puedes comentar las siguientes 3 líneas añadiendo un # al inicio:
+        if not token or token not in valid_tokens:
+             return web.json_response({'error': 'Token no reconocido', 'sent': str(token)}, status=401)
+        
         return await handler(request)
 
     # --- HANDLERS ---
