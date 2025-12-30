@@ -94,24 +94,59 @@ class TelegramUploader:
         self.is_connected = False
 
     async def connect(self):
-        api_id = int(self.bot_token.split(':')[0]) if ':' in self.bot_token else Config.API_ID
-        self.client = TelegramClient(f'session_{api_id}', api_id, Config.API_HASH)
-        await self.client.start(bot_token=self.bot_token)
-        self.is_connected = True
-        self.channel = await self.client.get_entity(Config.CHANNEL_USERNAME)
-        return True
+        try:
+            api_id = int(self.bot_token.split(':')[0]) if ':' in self.bot_token else Config.API_ID
+            # Usamos :memory: para que no intente crear archivos en Render que causan error 500
+            self.client = TelegramClient(None, api_id, Config.API_HASH)
+            await self.client.start(bot_token=self.bot_token)
+            self.is_connected = True
+            
+            # Intentamos obtener el canal para validar que existe
+            try:
+                self.channel = await self.client.get_entity(Config.CHANNEL_USERNAME)
+                logger.info(f"✅ Canal verificado: {Config.CHANNEL_USERNAME}")
+            except Exception as ce:
+                logger.error(f"⚠️ No se pudo encontrar el canal {Config.CHANNEL_USERNAME}: {ce}")
+                self.channel = Config.CHANNEL_USERNAME # Reintento directo
+                
+            return True
+        except Exception as e:
+            logger.error(f"❌ Error en conexión de bot: {e}")
+            return False
 
     async def upload_file(self, file_path: Path, caption: str = "") -> Dict:
-        if not self.is_connected: await self.connect()
+        if not self.is_connected: 
+            await self.connect()
         try:
-            file = await self.client.upload_file(file=file_path, part_size_kb=512)
-            message = await self.client.send_file(entity=self.channel, file=file, caption=caption)
-            return {'success': True, 'message_id': message.id, 'telegram_link': f"https://t.me/{Config.CHANNEL_USERNAME.replace('@','')}/{message.id}"}
+            # Subir el archivo a los servidores de Telegram
+            # part_size_kb=512 es ideal para Render
+            file = await self.client.upload_file(file=str(file_path), part_size_kb=512)
+            
+            # Enviar el archivo subido al canal
+            message = await self.client.send_file(
+                entity=self.channel,
+                file=file,
+                caption=caption,
+                force_document=False # Permite que las imágenes se vean como tales
+            )
+            
+            # Construir el link
+            channel_id = Config.CHANNEL_USERNAME.replace('@', '')
+            msg_link = f"https://t.me/{channel_id}/{message.id}"
+            
+            return {
+                'success': True,
+                'message_id': message.id,
+                'telegram_link': msg_link
+            }
         except Exception as e:
+            logger.error(f"❌ Error enviando a Telegram: {e}")
             return {'success': False, 'error': str(e)}
 
     async def disconnect(self):
-        if self.client: await self.client.disconnect()
+        if self.client: 
+            await self.client.disconnect()
+            
 
 class TelegramBridgeServer:
     def __init__(self):
