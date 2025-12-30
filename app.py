@@ -161,92 +161,158 @@ class BridgeApp:
             return web.json_response({'error': str(e)}, status=500, headers=CORS_HEADERS)
 
     async def handle_finalize(self, request):
-        try:
-            data = await request.json()
-            sid = data.get('session_id')
-            
-            if sid not in self.sessions:
-                return web.json_response({'error': 'Sesión inválida'}, status=404, headers=CORS_HEADERS)
+    try:
+        data = await request.json()
+        sid = data.get('session_id')
+        
+        if sid not in self.sessions:
+            return web.json_response({'error': 'Sesión inválida'}, status=404, headers=CORS_HEADERS)
 
-            session = self.sessions[sid]
+        session = self.sessions[sid]
+        
+        # Validar que el archivo existe
+        if not session['path'].exists():
+            return web.json_response({'error': 'Archivo no encontrado'}, status=404, headers=CORS_HEADERS)
+        
+        file_size = os.path.getsize(session['path'])
+        if file_size == 0:
+            return web.json_response({'error': 'Archivo vacío'}, status=400, headers=CORS_HEADERS)
+        
+        logger.info(f"📤 Enviando archivo a Telegram: {session['name']} ({file_size} bytes)")
+        
+        # Obtener cliente Telegram
+        try:
+            client = await get_telegram_client(session['token'])
+        except Exception as e:
+            logger.error(f"❌ Error obteniendo cliente Telegram: {e}")
+            return web.json_response({
+                'success': False, 
+                'error': f'Error de autenticación con Telegram: {str(e)}'
+            }, status=500, headers=CORS_HEADERS)
+        
+        # Subir archivo a Telegram
+        try:
+            message = await client.send_file(
+                CHANNEL_ID,
+                file=str(session['path']),
+                caption=f"📁 {session['name']}\n📦 Tamaño: {file_size:,} bytes",
+                force_document=False,
+                progress_callback=self.upload_progress
+            )
             
-            # Validar que el archivo existe
-            if not session['path'].exists():
-                return web.json_response({'error': 'Archivo no encontrado'}, status=404, headers=CORS_HEADERS)
+            logger.info(f"✅ Archivo subido. Message ID: {message.id}")
             
-            file_size = os.path.getsize(session['path'])
-            if file_size == 0:
-                return web.json_response({'error': 'Archivo vacío'}, status=400, headers=CORS_HEADERS)
+            # OBTENER ENLACE DIRECTO DEL ARCHIVO SUBIDO
+            direct_url = None
+            file_id = None
             
-            logger.info(f"📤 Enviando archivo a Telegram: {session['name']} ({file_size} bytes)")
+            if message.media:
+                # Para fotos
+                if hasattr(message.media, 'photo'):
+                    file_id = message.media.photo.id
+                    # Crear enlace directo usando file_id
+                    direct_url = f"https://api.telegram.org/file/bot{session['token']}/photos/{file_id}"
+                    
+                # Para documentos (incluye imágenes enviadas como documento)
+                elif hasattr(message.media, 'document'):
+                    file_id = message.media.document.id
+                    # Obtener file_path del documento
+                    try:
+                        file_info = await client.get_messages(CHANNEL_ID, ids=message.id)
+                        if file_info.document:
+                            # Intentar descargar para obtener URL directa
+                            file_data = await client.download_media(message.media, bytes)
+                            # Guardar temporalmente para servir
+                            file_ext = '.jpg' if session['name'].lower().endswith(('.jpg', '.jpeg', '.png', '.gif')) else '.mp4'
+                            temp_file = TMP_DIR / f"file_{message.id}{file_ext}"
+                            with open(temp_file, 'wb') as f:
+                                f.write(file_data)
+                            
+                            # Crear URL pública para el archivo
+                            base_url = f"https://{request.url.host}" if 'render.com' in request.url.host else f"http://{request.url.host}:{request.url.port}"
+                            direct_url = f"{base_url}/get-file/{message.id}"
+                    except Exception as e:
+                        logger.error(f"❌ Error obteniendo file_path: {e}")
+                        # Fallback: usar enlace de Telegram
+                        direct_url = f"https://t.me/{PUBLIC_NAME}/{message.id}"
             
-            # Obtener cliente Telegram
-            try:
-                client = await get_telegram_client(session['token'])
-            except Exception as e:
-                logger.error(f"❌ Error obteniendo cliente Telegram: {e}")
-                return web.json_response({
-                    'success': False, 
-                    'error': f'Error de autenticación con Telegram: {str(e)}'
-                }, status=500, headers=CORS_HEADERS)
+            # Crear respuesta con ENLACES CORRECTOS
+            response_data = {
+                'success': True,
+                'message_id': message.id,
+                'telegram_link': f"https://t.me/{PUBLIC_NAME}/{message.id}",
+                'direct_link': direct_url or f"https://t.me/{PUBLIC_NAME}/{message.id}",  # Fallback al enlace de Telegram
+                'file_name': session['name'],
+                'file_size': file_size,
+                'file_id': str(file_id) if file_id else None,
+                'channel_id': CHANNEL_ID
+            }
             
-            # Subir archivo a Telegram
-            try:
-                message = await client.send_file(
-                    CHANNEL_ID,
-                    file=str(session['path']),
-                    caption=f"📁 {session['name']}\n📦 Tamaño: {file_size:,} bytes",
-                    force_document=False,
-                    progress_callback=self.upload_progress
-                )
-                
-                logger.info(f"✅ Archivo subido. Message ID: {message.id}")
-                
-                # Obtener información del archivo
-                file_info = None
-                if message.media:
-                    if hasattr(message.media, 'photo'):
-                        file_info = message.media.photo
-                    elif hasattr(message.media, 'document'):
-                        file_info = message.media.document
-                
-                # Crear respuesta
-                response_data = {
-                    'success': True,
-                    'message_id': message.id,
-                    'telegram_link': f"https://t.me/{PUBLIC_NAME}/{message.id}",
-                    'file_name': session['name'],
-                    'file_size': file_size,
-                    'file_id': str(file_info.id) if file_info else None,
-                    'channel_id': CHANNEL_ID
-                }
-                
-                return web.json_response(response_data, headers=CORS_HEADERS)
-                
-            except Exception as e:
-                logger.error(f"❌ Error subiendo a Telegram: {e}")
-                return web.json_response({
-                    'success': False, 
-                    'error': f'Error subiendo a Telegram: {str(e)}'
-                }, status=500, headers=CORS_HEADERS)
+            logger.info(f"🔗 Enlaces generados: Telegram={response_data['telegram_link']}, Directo={response_data['direct_link']}")
+            
+            # Limpiar archivo temporal original
+            if session['path'].exists():
+                session['path'].unlink()
+            
+            # Eliminar sesión
+            del self.sessions[sid]
+            
+            return web.json_response(response_data, headers=CORS_HEADERS)
             
         except Exception as e:
-            logger.error(f"❌ Error en finalize: {e}")
-            return web.json_response({'error': str(e)}, status=500, headers=CORS_HEADERS)
+            logger.error(f"❌ Error subiendo a Telegram: {e}")
+            return web.json_response({
+                'success': False, 
+                'error': f'Error subiendo a Telegram: {str(e)}'
+            }, status=500, headers=CORS_HEADERS)
+        
+    except Exception as e:
+        logger.error(f"❌ Error en finalize: {e}")
+        return web.json_response({'error': str(e)}, status=500, headers=CORS_HEADERS)
+        
     
     def upload_progress(self, current, total):
         """Callback de progreso para Telegram"""
         progress = (current / total) * 100
         logger.info(f"📤 Progreso Telegram: {progress:.1f}% ({current}/{total})")
 
-    async def handle_get_file(self, request):
-        """Servir archivo directamente (no implementado completamente)"""
-        message_id = request.match_info.get('message_id')
-        return web.Response(
-            text="Esta funcionalidad requiere configuración adicional",
-            status=501,
-            headers=CORS_HEADERS
-        )
+   async def handle_get_file(self, request):
+    """Servir archivo directamente desde cache temporal"""
+    message_id = request.match_info.get('message_id')
+    
+    # Buscar archivos que coincidan con el message_id
+    for file_path in TMP_DIR.glob(f"file_{message_id}.*"):
+        if file_path.exists():
+            # Determinar tipo de contenido
+            ext = file_path.suffix.lower()
+            if ext in ['.jpg', '.jpeg', '.png', '.gif']:
+                content_type = f'image/{ext[1:]}' if ext != '.jpg' else 'image/jpeg'
+            elif ext in ['.mp4', '.webm', '.mov']:
+                content_type = f'video/{ext[1:]}' if ext != '.mp4' else 'video/mp4'
+            else:
+                content_type = 'application/octet-stream'
+            
+            # Servir el archivo con headers para cache
+            headers = {
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'public, max-age=31536000',  # Cache por 1 año
+                'Content-Type': content_type,
+                'Content-Disposition': f'inline; filename="{file_path.name}"'
+            }
+            
+            return web.Response(
+                body=file_path.read_bytes(),
+                headers=headers
+            )
+    
+    # Si no encontramos el archivo, redirigir a Telegram
+    return web.Response(
+        status=302,
+        headers={
+            'Location': f'https://t.me/{PUBLIC_NAME}/{message_id}',
+            'Access-Control-Allow-Origin': '*'
+        }
+    )
 
 async def cleanup():
     """Limpiar clientes Telegram al cerrar"""
