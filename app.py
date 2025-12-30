@@ -9,14 +9,17 @@ from telethon import TelegramClient
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# --- TUS CREDENCIALES REALES ---
+# --- CREDENCIALES ---
 API_ID = 38389812
 API_HASH = 'a97923c7c5c6e351f69fe9619965e85e'
-CHANNEL_USERNAME = os.getenv('TELEGRAM_CHANNEL', '@chanelxmladmin')
+# Usamos el ID del canal directamente
+CHANNEL_ID = -1003492688553 
+PUBLIC_NAME = "chanelxmladmin" # Para el link estético final
+
 TMP_DIR = Path("temp_uploads")
 TMP_DIR.mkdir(exist_ok=True)
 
-# Encabezados CORS universales para que Blogger no bloquee la petición
+# Encabezados CORS universales para Blogger
 CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -29,7 +32,6 @@ async def handle_options(request):
 
 class BridgeApp:
     def __init__(self):
-        # Soporta hasta 2GB de archivo
         self.app = web.Application(client_max_size=2000*1024*1024)
         self.sessions = {}
         self.setup_routes()
@@ -42,7 +44,7 @@ class BridgeApp:
         self.app.router.add_get('/', self.handle_health)
 
     async def handle_health(self, request):
-        return web.Response(text="🚀 Puente de Gallos Online", headers=CORS_HEADERS)
+        return web.Response(text="🚀 Puente con ID Numérico Online", headers=CORS_HEADERS)
 
     async def handle_init(self, request):
         try:
@@ -52,13 +54,11 @@ class BridgeApp:
             token = request.headers.get('X-Bot-Token')
             
             file_path = TMP_DIR / f"{sid}_{file_name}"
-            # Guardamos la sesión
             self.sessions[sid] = {'path': file_path, 'token': token, 'name': file_name}
             
             logger.info(f"🆕 Sesión iniciada: {sid}")
             return web.json_response({'success': True, 'session_id': sid}, headers=CORS_HEADERS)
         except Exception as e:
-            logger.error(f"Error en init: {e}")
             return web.json_response({'error': str(e)}, status=400, headers=CORS_HEADERS)
 
     async def handle_chunk(self, request):
@@ -68,7 +68,6 @@ class BridgeApp:
             chunk_data = data.get('chunk_data').file.read()
             
             if sid in self.sessions:
-                # Escribir chunk al disco
                 with open(self.sessions[sid]['path'], 'ab') as f:
                     f.write(chunk_data)
                 return web.json_response({'success': True}, headers=CORS_HEADERS)
@@ -85,34 +84,34 @@ class BridgeApp:
             if not session:
                 return web.json_response({'error': 'Sesión inválida'}, status=404, headers=CORS_HEADERS)
 
-            # Conectar a Telegram con TUS credenciales
+            # Iniciar cliente Telethon (Sin archivo de sesión para Render)
             client = TelegramClient(None, API_ID, API_HASH)
             await client.start(bot_token=session['token'])
             
-            logger.info(f"📤 Subiendo a Telegram: {session['name']}")
+            logger.info(f"📤 Enviando archivo a ID: {CHANNEL_ID}")
             
-            # Enviar el archivo reconstruido
+            # Subida directa usando el ID numérico
             message = await client.send_file(
-                CHANNEL_USERNAME,
+                CHANNEL_ID,
                 file=session['path'],
                 caption=f"✅ {session['name']}"
             )
             await client.disconnect()
 
-            # Limpiar disco y memoria
-            if session['path'].exists(): session['path'].unlink()
+            # Limpieza de archivos temporales
+            if session['path'].exists():
+                session['path'].unlink()
             del self.sessions[sid]
 
-            # Responder con el link real de Telegram
-            clean_channel = CHANNEL_USERNAME.replace('@','')
+            # Retornar el link con el nombre público para que funcione en Blogger
             return web.json_response({
                 'success': True,
                 'message_id': message.id,
-                'telegram_link': f"https://t.me/{clean_channel}/{message.id}"
+                'telegram_link': f"https://t.me/{PUBLIC_NAME}/{message.id}"
             }, headers=CORS_HEADERS)
             
         except Exception as e:
-            logger.error(f"❌ Error finalizando: {e}")
+            logger.error(f"❌ Error en Telegram: {e}")
             return web.json_response({'success': False, 'error': str(e)}, status=500, headers=CORS_HEADERS)
 
 if __name__ == '__main__':
