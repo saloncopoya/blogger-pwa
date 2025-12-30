@@ -396,7 +396,20 @@ class TelegramBridgeServer:
             }, status=403)
         
         return await handler(request)
-    
+
+    @web.middleware
+    async def cors_middleware(self, request, handler):
+        """Middleware para permitir que Blogger se conecte"""
+        if request.method == 'OPTIONS':
+            response = web.Response(status=204)
+        else:
+            response = await handler(request)
+        
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-Bot-Token, Authorization'
+        return response
+        
     # ==============================================
     # HANDLERS
     # ==============================================
