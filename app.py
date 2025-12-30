@@ -310,7 +310,6 @@ class TelegramBridgeServer:
             middlewares=[
                 self.error_middleware,
                 self.auth_middleware,
-                self.cors_middleware  # <--- Añade esto
             ]
         )
         
@@ -357,21 +356,7 @@ class TelegramBridgeServer:
     # MIDDLEWARES
     # ==============================================
     
-    @web.middleware
-    async def error_middleware(self, request, handler):
-        """Middleware para manejo de errores"""
-        try:
-            return await handler(request)
-        except web.HTTPException as ex:
-            raise ex
-        except Exception as e:
-            logger.error(f"❌ Error no manejado: {e}")
-            return web.json_response({
-                'success': False,
-                'error': 'Internal server error',
-                'details': str(e)
-            }, status=500)
-    
+  
     @web.middleware
     async def auth_middleware(self, request, handler):
         """Middleware de autenticación por bot token"""
