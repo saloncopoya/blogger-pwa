@@ -4,8 +4,8 @@ const OFFLINE_URL = '/offline.html'; // Página offline personalizada
 
 // Archivos críticos para cachear
 const PRECACHE_ASSETS = [
-  './',
-  './?m=1',
+  'https://postinv2s.blogspot.com',
+  'https://postinv2s.blogspot.com/?m=1',
   // Agrega aquí URLs específicas de tu blog
 ];
 
